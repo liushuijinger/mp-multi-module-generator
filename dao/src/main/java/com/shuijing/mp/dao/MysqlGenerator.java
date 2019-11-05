@@ -69,7 +69,7 @@ public class MysqlGenerator {
     public static final String DATABASE_PASSWORD = "123456";
 
     // 要生成代码的表名
-    public static final String[] TABLE_NAMES = new String[] { "user", "person" };
+    public static final String[] TABLE_NAMES = new String[] { "user" };
 
 
     // 开发者信息
