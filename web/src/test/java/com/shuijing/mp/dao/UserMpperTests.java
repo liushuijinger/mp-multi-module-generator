@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liushuijing (shuijing@shanshu.ai)
@@ -77,6 +78,22 @@ public class UserMpperTests {
                         .inSql("id", "select id from user where name like 'j%'");
 
         List<Object> list = userMapper.selectObjs(queryWrapper);
+        list.forEach(System.out::println);
+    }
+
+    /**
+     * 查询结果：字段名为 map 的 key，字段的值为 map 的 value
+     *
+     * SELECT id,create_time,name,email,age
+     *  FROM user
+     *  WHERE (name LIKE 'j%' AND ( (age < 40 OR email IS NOT NULL) ));
+     */
+    @Test
+    public void selectMaps() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.likeRight("name", "j").and(wq -> wq.lt("age", 40).or().isNotNull("email"));
+
+        List<Map<String, Object>> list = userMapper.selectMaps(queryWrapper);
         list.forEach(System.out::println);
     }
 }
