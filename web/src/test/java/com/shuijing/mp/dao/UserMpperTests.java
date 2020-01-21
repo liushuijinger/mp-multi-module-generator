@@ -35,31 +35,49 @@ public class UserMpperTests {
         log.info(user.toString());
     }
 
+    /**
+     * SELECT id,create_time,name,email,age
+     *  FROM user
+     *  WHERE (id = 1);
+     */
     @Test
     public void selectOne() {
         Integer id = 1;
         QueryWrapper<User> wapper = new QueryWrapper<>();
-        wapper.eq("id",1);
+//        wapper.eq("id",1);
+        wapper.lambda().eq(User::getId, 1);
         User user = userMapper.selectOne(wapper);
         Assert.assertNotNull(user);
         log.info(user.toString());
     }
 
+    /**
+     * SELECT id,create_time,name,email,age
+     *  FROM user
+     *  WHERE (name LIKE '%j%' AND age BETWEEN 1 AND 25 AND email IS NOT NULL);
+     */
     @Test
     public void selectList() {
         Integer id = 1;
         QueryWrapper<User> wapper = new QueryWrapper<>();
-        wapper.like("name", "j").between("age", 1, 25).isNotNull("email");
+//        wapper.like("name", "j").between("age", 1, 25).isNotNull("email");
+        wapper.lambda().like(User::getName, "j").between(User::getAge, 1, 25).isNotNull(User::getEmail);
         List<User> userList = userMapper.selectList(wapper);
         Assert.assertNotNull(userList);
         userList.forEach(System.out::println);
     }
 
+    /**
+     * SELECT COUNT( 1 )
+     *  FROM user
+     *  WHERE (name LIKE '%j%' AND age BETWEEN 1 AND 25 AND email IS NOT NULL);
+     */
     @Test
     public void selectCount() {
         Integer id = 1;
         QueryWrapper<User> wapper = new QueryWrapper<>();
-        wapper.like("name", "j").between("age", 1, 25).isNotNull("email");
+//        wapper.like("name", "j").between("age", 1, 25).isNotNull("email");
+        wapper.lambda().like(User::getName, "j").between(User::getAge, 1, 25).isNotNull(User::getEmail);
         Integer count = userMapper.selectCount(wapper);
         log.info("count: {}",count);
     }
@@ -91,8 +109,9 @@ public class UserMpperTests {
     @Test
     public void selectMaps() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.likeRight("name", "j").and(wq -> wq.lt("age", 40).or().isNotNull("email"));
-
+//        queryWrapper.likeRight("name", "j").and(wq -> wq.lt("age", 40).or().isNotNull("email"));
+        queryWrapper.lambda().likeRight(User::getName, "j")
+                        .and(wq -> wq.lt(User::getAge, 40).or().isNotNull(User::getEmail));
         List<Map<String, Object>> list = userMapper.selectMaps(queryWrapper);
         list.forEach(System.out::println);
     }
