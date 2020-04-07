@@ -24,7 +24,7 @@ import java.util.Scanner;
  * mysql 代码生成器
  * </p>
  *
- * @author liushuijing (shuijing@shanshu.ai)
+ * @author liushuijing
  * @since 2019-11-04
  */
 public class MysqlGenerator {

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author liushuijing (shuijing@shanshu.ai)
+ * @author liushuijing
  * @date 2019/11/06
  */
 @Slf4j

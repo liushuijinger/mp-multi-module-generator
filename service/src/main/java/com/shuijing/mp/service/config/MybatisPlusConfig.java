@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author liushuijing (shuijing@shanshu.ai)
+ * @author liushuijing
  * @date 2019/11/06
  */
 @Configuration
